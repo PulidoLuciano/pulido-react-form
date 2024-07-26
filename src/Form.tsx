@@ -38,11 +38,11 @@ export function Form({customMessages, defaultMessages, children, onSubmit,...pro
                     case "ErrorMessage":
                         return <ErrorMessage message={errors.find(error => error.name === props.htmlFor)?.message} for={props.htmlFor} {...props}/>;
                     case "textarea":
-                        newProps = {type: "textarea", ...props}
+                        newProps = {id: props.name, name: props.id, type: "textarea", ...props}
                         inputsData.push(newProps);
                         return <textarea {...props}></textarea>;
                     case "select":
-                        newProps = {type: "select", ...props}
+                        newProps = {id: props.name, name: props.id, type: "select", ...props}
                         inputsData.push(newProps);
                         return <select {...props}/>;
                     default:
