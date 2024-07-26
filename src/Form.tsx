@@ -35,7 +35,7 @@ export function Form({customMessages, defaultMessages, children, onSubmit,...pro
                         if(newProps.id || newProps.name) inputsData.push({...props});
                         return <input {...newProps}/>;
                     case "ErrorMessage":
-                        return <ErrorMessage message={errors.find(error => error.name === props.htmlFor)?.message} {...props}/>;
+                        return <ErrorMessage message={errors.find(error => error.name === props.htmlFor)?.message} for={props.htmlFor} {...props}/>;
                     default:
                         return child;
                 }
