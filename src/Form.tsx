@@ -29,13 +29,22 @@ export function Form({customMessages, defaultMessages, children, onSubmit,...pro
                 if(!isValidElement(child)) return child;
                 let {props, type} = child;
                 let elementType = ((type as JSXElementConstructor<any>).name) ? (type as JSXElementConstructor<any>).name : type;
+                let newProps;
                 switch(elementType){
                     case "input": 
-                        const newProps = {id: props.name, name: props.id, ...props};
+                        newProps = {id: props.name, name: props.id, ...props};
                         if(newProps.id || newProps.name) inputsData.push({...props});
                         return <input {...newProps}/>;
                     case "ErrorMessage":
                         return <ErrorMessage message={errors.find(error => error.name === props.htmlFor)?.message} for={props.htmlFor} {...props}/>;
+                    case "textarea":
+                        newProps = {type: "textarea", ...props}
+                        inputsData.push(newProps);
+                        return <textarea {...props}></textarea>;
+                    case "select":
+                        newProps = {type: "select", ...props}
+                        inputsData.push(newProps);
+                        return <select {...props}/>;
                     default:
                         return child;
                 }
