@@ -18,6 +18,7 @@ interface messages{
     max? : string
     min? : string
     required? : string
+    validateFunction? : string
 }
 
 interface ErrorMessageDeclaration{
@@ -33,7 +34,7 @@ export interface CustomFormProps extends ComponentPropsWithoutRef<"form">{
 
 export interface CustomInputProps extends ComponentPropsWithoutRef<"input">{
     equalGroup? : string
-    validate? : (value : any, expected : any) => boolean
+    validateFunction? : (value : any, expected : any) => boolean
 }
 
 export interface CustomTextareaProps extends ComponentPropsWithoutRef<"textarea">{

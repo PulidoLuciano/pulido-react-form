@@ -9,7 +9,8 @@ const customMessages : ErrorMessageDeclaration[] = [
   {
     name: "Name",
     messages: {
-      required: "Hola capo. No tenes nombre?"
+      required: "Hola capo. No tenes nombre?",
+      validateFunction: "No puedes poner 'Hola' en este campo"
     }
   }
 ]
@@ -18,12 +19,16 @@ const defaultMessages : messages = {
   required: "Debes completar este campo"
 }
 
+function test(text : string, _ : null){
+  return text === "Hola";
+}
+
 function App() {
   return (
     <>
       <Form action="" customMessages={customMessages} defaultMessages={defaultMessages}>
         <label htmlFor="Name">Name</label>
-        <Input type="text" name="Name" required={true}/>
+        <Input type="text" name="Name" required={true} validateFunction={test}/>
         <ErrorMessage htmlFor="Name"/>
         <input type="email" name="Email" required={true} minLength={2} maxLength={30}/>
         <ErrorMessage htmlFor="Email"/>
