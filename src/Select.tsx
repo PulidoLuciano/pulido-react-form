@@ -1,5 +1,5 @@
 import { CustomSelectProps } from "./module";
 
-export default function Select(props : CustomSelectProps){
+export function Select(props : CustomSelectProps){
     return <select {...props}/>
 }

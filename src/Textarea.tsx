@@ -1,5 +1,5 @@
 import { CustomTextareaProps } from "./module";
 
-export default function Textarea(props : CustomTextareaProps){
+export function Textarea(props : CustomTextareaProps){
     return <textarea {...props}/>
 }

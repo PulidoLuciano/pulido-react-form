@@ -1,9 +1,9 @@
 import { ErrorMessage } from "./ErrorMessage"
 import { Form } from "./Form"
-import Input from "./Input"
+import {Input} from "./Input"
 import { ErrorMessageDeclaration, messages } from "./module"
-import Select from "./Select"
-import Textarea from "./Textarea"
+import {Select} from "./Select"
+import {Textarea} from "./Textarea"
 
 const customMessages : ErrorMessageDeclaration[] = [
   {
