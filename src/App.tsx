@@ -10,7 +10,7 @@ const customMessages : ErrorMessageDeclaration[] = [
     name: "Name",
     messages: {
       required: "Hola capo. No tenes nombre?",
-      validateFunction: "No puedes poner 'Hola' en este campo"
+      custom: "No puedes poner 'Hola' en este campo"
     }
   }
 ]
@@ -28,10 +28,14 @@ function App() {
     <>
       <Form action="" customMessages={customMessages} defaultMessages={defaultMessages}>
         <label htmlFor="Name">Name</label>
-        <Input type="text" name="Name" required={true} validateFunction={test}/>
+        <Input type="text" name="Name" required={true} custom={test}/>
         <ErrorMessage htmlFor="Name"/>
         <input type="email" name="Email" required={true} minLength={2} maxLength={30}/>
         <ErrorMessage htmlFor="Email"/>
+        <Input type="password" name="Password" equalize="password" required={true} minLength={2} maxLength={30}/>
+        <ErrorMessage htmlFor="Password"/>
+        <Input type="password" name="Confirm Password" equalize="password" required={true} minLength={2} maxLength={30}/>
+        <ErrorMessage htmlFor="Confirm Password"/>
         <Textarea name="Summary" required={true} minLength={4} maxLength={6}></Textarea>
         <ErrorMessage htmlFor="Summary"/>
         <Select name="Frutes" id="Frutes" required={true}>

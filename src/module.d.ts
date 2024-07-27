@@ -18,7 +18,8 @@ interface messages{
     max? : string
     min? : string
     required? : string
-    validateFunction? : string
+    custom? : string
+    equalize? : string
 }
 
 interface ErrorMessageDeclaration{
@@ -33,21 +34,28 @@ export interface CustomFormProps extends ComponentPropsWithoutRef<"form">{
 }
 
 export interface CustomInputProps extends ComponentPropsWithoutRef<"input">{
-    equalGroup? : string
-    validateFunction? : (value : any, expected : any) => boolean
+    equalize? : string
+    custom? : (value : any, expected : any) => boolean
 }
 
 export interface CustomTextareaProps extends ComponentPropsWithoutRef<"textarea">{
-    equalGroup? : string
-    validate? : (value : any, expected : any) => boolean
+    equalize? : string
+    custom? : (value : any, expected : any) => boolean
 }
 
 export interface CustomSelectProps extends ComponentPropsWithoutRef<"select">{
-    equalGroup? : string
-    validate? : (value : any, expected : any) => boolean
+    equalize? : string
+    custom? : (value : any, expected : any) => boolean
 }
 
 export interface InputError{
     name : string,
     message : string
+}
+
+export interface EqualizeGroup{
+    groupName : string
+    fields : string[]
+    value : any
+    error? : boolean
 }

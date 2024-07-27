@@ -45,7 +45,7 @@ export const VALIDATIONPROPS : validationProps[]= [
         onTypes: ["date", "month", "week", "time", "datetime-local", "number", "range"]
     },
     {
-        name: "validateFunction",
+        name: "custom",
         validationFunction: (_, _2) => false,
         defaultMessage: (name : string, _, _2 : any) => `${name} does not complete validation`,
         onTypes: ["text", "search", "url", "tel", "email", "password", "date", "month", "week", "time", "datetime-local", "number", "checkbox", "radio", "file", "textarea", "select", "color", "range"]

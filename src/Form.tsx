@@ -1,20 +1,22 @@
-import { Children, ComponentPropsWithoutRef, isValidElement, JSXElementConstructor, ReactNode, useState } from "react";
+import { Children, isValidElement, JSXElementConstructor, ReactNode, useState } from "react";
 import { ErrorMessage } from "./ErrorMessage";
-import type { CustomFormProps, InputError } from "./module.d.ts";
-import { validate } from "./validate.ts";
+import type { CustomFormProps, CustomInputProps, InputError } from "./module.d.ts";
+import { validate, validateGroups } from "./validate.ts";
 
 export function Form({customMessages, defaultMessages, children, onSubmit,...props} : CustomFormProps){    
     
-    let inputsData : Array<ComponentPropsWithoutRef<"input">> = [];
+    let inputsData : Array<CustomInputProps> = [];
     const [errors, setErrors] = useState<InputError[]>([]);
     
     function handleSubmit(event : React.SyntheticEvent<HTMLFormElement>){ 
         let newErrors : InputError[] = [];
-        inputsData.forEach((input : ComponentPropsWithoutRef<"input">) => {
+        inputsData.forEach((input : CustomInputProps) => {
             if(!input.name) return;
-            const inputError = validate((event.target as HTMLFormElement)[input.name].value, input, customMessages, defaultMessages);
+            input.value = (event.target as HTMLFormElement)[input.name].value
+            const inputError = validate(input.value, input, customMessages, defaultMessages);
             if(inputError) newErrors.push(inputError);
         });
+        newErrors = newErrors.concat(validateGroups(inputsData, customMessages, defaultMessages));
         if(!(newErrors.length == 0)){
             event.preventDefault();
         }else{
