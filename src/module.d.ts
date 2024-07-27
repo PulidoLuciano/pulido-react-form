@@ -31,6 +31,21 @@ export interface CustomFormProps extends ComponentPropsWithoutRef<"form">{
     onSubmit? : (event : React.SyntheticEvent<HTMLFormElement>) => void
 }
 
+export interface CustomInputProps extends ComponentPropsWithoutRef<"input">{
+    equalGroup? : string
+    validate? : (value : any, expected : any) => boolean
+}
+
+export interface CustomTextareaProps extends ComponentPropsWithoutRef<"textarea">{
+    equalGroup? : string
+    validate? : (value : any, expected : any) => boolean
+}
+
+export interface CustomSelectProps extends ComponentPropsWithoutRef<"select">{
+    equalGroup? : string
+    validate? : (value : any, expected : any) => boolean
+}
+
 export interface InputError{
     name : string,
     message : string

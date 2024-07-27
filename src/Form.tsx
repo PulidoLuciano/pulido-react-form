@@ -30,12 +30,12 @@ export function Form({customMessages, defaultMessages, children, onSubmit,...pro
                 let {props, type} = child;
                 let elementType = ((type as JSXElementConstructor<any>).name) ? (type as JSXElementConstructor<any>).name : type;
                 let newProps;
-                switch(elementType){
+                switch((elementType as string).toLowerCase()){
                     case "input": 
                         newProps = {id: props.name, name: props.id, ...props};
                         if(newProps.id || newProps.name) inputsData.push({...props});
                         return <input {...newProps}/>;
-                    case "ErrorMessage":
+                    case "errormessage":
                         return <ErrorMessage message={errors.find(error => error.name === props.htmlFor)?.message} for={props.htmlFor} {...props}/>;
                     case "textarea":
                         newProps = {id: props.name, name: props.id, type: "textarea", ...props}
