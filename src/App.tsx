@@ -1,5 +1,6 @@
 import { ErrorMessage } from "./ErrorMessage"
 import { Form } from "./Form"
+import GeneralStatus from "./GeneralStatus"
 import {Input} from "./Input"
 import { ErrorMessageDeclaration, messages } from "./module"
 import {Select} from "./Select"
@@ -24,9 +25,15 @@ function test(text : string, _ : null){
 }
 
 function App() {
+  
+  function handleSubmit(event : React.SyntheticEvent<HTMLFormElement>){
+    event.preventDefault();
+    console.log(event.target)
+  }
+  
   return (
     <>
-      <Form action="" customMessages={customMessages} defaultMessages={defaultMessages}>
+      <Form action="" customMessages={customMessages} defaultMessages={defaultMessages} onSubmit={handleSubmit}>
         <label htmlFor="Name">Name</label>
         <Input type="text" name="Name" required={true} custom={test}/>
         <ErrorMessage htmlFor="Name"/>
@@ -46,6 +53,7 @@ function App() {
         </Select>
         <ErrorMessage htmlFor="Frutes"/>
         <Input type="submit" value="Send"/>
+        <GeneralStatus successMessage={"Test"} errorMessage={"test error"}/>
       </Form>
     </>
   )

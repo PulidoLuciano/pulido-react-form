@@ -2,6 +2,7 @@ import { Children, isValidElement, JSXElementConstructor, ReactNode, useState } 
 import { ErrorMessage } from "./ErrorMessage";
 import type { CustomFormProps, CustomInputProps, InputError } from "./module.d.ts";
 import { validate, validateGroups } from "./validate.ts";
+import { GeneralStatusProps } from "./GeneralStatus.tsx";
 
 export function Form({customMessages, defaultMessages, children, onSubmit,...props} : CustomFormProps){    
     
@@ -57,6 +58,9 @@ export function Form({customMessages, defaultMessages, children, onSubmit,...pro
                         newProps = {id: props.name, name: props.id, type: "select", ...props}
                         inputsData.push(newProps);
                         return <select {...props}/>;
+                    case "generalstatus":
+                        if(errors.length === 0) return (props as GeneralStatusProps).successMessage;
+                        else return (props as GeneralStatusProps).errorMessage;
                     default:
                         return child;
                 }
