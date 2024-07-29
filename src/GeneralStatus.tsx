@@ -5,7 +5,7 @@ export interface GeneralStatusProps{
     errorMessage : ReactNode
 }
 
-export default function GeneralStatus({successMessage, errorMessage} : GeneralStatusProps){
+export function GeneralStatus({successMessage, errorMessage} : GeneralStatusProps){
     successMessage;
     errorMessage;
     return null;

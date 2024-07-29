@@ -1,6 +1,6 @@
 import { ErrorMessage } from "./ErrorMessage"
 import { Form } from "./Form"
-import GeneralStatus from "./GeneralStatus"
+import {GeneralStatus} from "./GeneralStatus"
 import {Input} from "./Input"
 import { ErrorMessageDeclaration, messages } from "./module"
 import {Select} from "./Select"
