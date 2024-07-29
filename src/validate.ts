@@ -1,6 +1,16 @@
 import { CustomInputProps, EqualizeGroup, ErrorMessageDeclaration, InputError, map, messages, validationProps } from "./module";
 import { VALIDATIONPROPS } from "./constants";
 
+/**
+ * Validates an input and return the first error founded
+ * 
+ * @param value - The currently input's value
+ * @param inputData - The input's prop
+ * @param customMessages - The custom messages set by the user
+ * @param defaultMessages - The default messages set by the user
+ * 
+ * @returns The first error founded, otherwise null
+ */
 export function validate(value : any, inputData : CustomInputProps, customMessages? : Array<ErrorMessageDeclaration>, defaultMessages? : messages){
     for(let i = 0; i < VALIDATIONPROPS.length; i++){
         if(isNotValid(value, inputData as map, VALIDATIONPROPS[i])){
@@ -12,6 +22,15 @@ export function validate(value : any, inputData : CustomInputProps, customMessag
     return null;
 }
 
+/**
+ * Validates the groups set by the prop equalize
+ * 
+ * @param inputData - The inputs' props
+ * @param customMessages - The custom messages set by the user
+ * @param defaultMessages - The default messages set by the user
+ * 
+ * @returns Errors for all the inputs within a group that does not match, otherwise an empty array
+ */
 export function validateGroups(inputsData : CustomInputProps[], customMessages? : Array<ErrorMessageDeclaration>, defaultMessages? : messages){
     let equalizeGroups : EqualizeGroup[] = [];
     let errors : InputError[] = [];
@@ -41,6 +60,17 @@ export function validateGroups(inputsData : CustomInputProps[], customMessages? 
     return errors;
 }
 
+/**
+ * Set the message for a specified error
+ * 
+ * @param value - The currently input's value
+ * @param inputData - The input's props
+ * @param validation - The validation prop that generate the error
+ * @param customMessages - The custom messages set by the user
+ * @param defaultMessages - The default messages set by the user
+ * 
+ * @returns The message for the error founded
+ */
 function setMessage(value : any, inputData : map, validation : validationProps , customMessages? : Array<ErrorMessageDeclaration>, defaultMessages? : messages){
     let customMessage = customMessages?.find(input => input.name === inputData.name);
     if(customMessage && (customMessage.messages as map)[validation.name]) return (customMessage.messages as map)[validation.name] as string;
@@ -48,6 +78,15 @@ function setMessage(value : any, inputData : map, validation : validationProps ,
     return validation.defaultMessage(inputData.name as string, value, inputData[validation.name]);
 }
 
+/**
+ * Set the message for a specified error
+ * 
+ * @param value - The currently input's value
+ * @param inputData - The input's props
+ * @param validation - The validation prop that is going to be validated
+ * 
+ * @returns False if the value is valid and true if the input is invalid
+ */
 function isNotValid(value : any, inputData : CustomInputProps, validation : validationProps){
     if(!(inputData as map)[validation.name] || !validation.onTypes.includes(inputData.type as string)) return false;
     if(validation.name !== "custom") return validation.validationFunction(value, (inputData as map)[validation.name]);

@@ -7,6 +7,6 @@ interface ErrorMessageProps extends ComponentPropsWithoutRef<"label">{
 
 export function ErrorMessage({htmlFor, message, ...props} : ErrorMessageProps){
     return (
-        message && <label htmlFor="" {...props}>{message}</label>
+        message && <label htmlFor={htmlFor} {...props}>{message}</label>
     )
 }

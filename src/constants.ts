@@ -1,6 +1,7 @@
 import { validationProps } from "./module";
 import { patternMismatch, rangeOverflow, rangeUnderflow, tooLong, tooShort, typeMismatch, valueMissing } from "./validations";
 
+//Props that represent a validation
 export const VALIDATIONPROPS : validationProps[]= [
     {
         name: "required",
