@@ -10,6 +10,8 @@ export function Form({customMessages, defaultMessages, children, onSubmit,...pro
     let inputsData : Array<CustomInputProps> = [];
     //State that stores all the errors found during validation
     const [errors, setErrors] = useState<InputError[]>([]);
+    //Indicate if the form was submitted before
+    const [submitted, setSubmitted] = useState<boolean>(false);
     
     function handleSubmit(event : React.SyntheticEvent<HTMLFormElement>){ 
         let newErrors : InputError[] = [];
@@ -28,6 +30,7 @@ export function Form({customMessages, defaultMessages, children, onSubmit,...pro
         }else{
             if(onSubmit) onSubmit(event);
         }
+        setSubmitted(true);
         setErrors(newErrors);
     }
 
@@ -59,6 +62,7 @@ export function Form({customMessages, defaultMessages, children, onSubmit,...pro
                         inputsData.push(newProps);
                         return <select {...props}/>;
                     case "generalstatus":
+                        if(!submitted) return null;
                         if(errors.length === 0) return (props as GeneralStatusProps).successMessage;
                         else return (props as GeneralStatusProps).errorMessage;
                     default:
