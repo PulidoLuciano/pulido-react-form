@@ -16,6 +16,7 @@ export function Form({customMessages, defaultMessages, children, onSubmit,...pro
     const [onSubmitError, setOnSubmitError] = useState<any | null>(null);
     
     async function handleSubmit(event : React.SyntheticEvent<HTMLFormElement>){ 
+        event.preventDefault(); // Prevent form submission initially
         let newErrors : InputError[] = [];
         //Iterate inputs and validate each one
         for(const input of inputsData){
@@ -26,16 +27,17 @@ export function Form({customMessages, defaultMessages, children, onSubmit,...pro
         }
         //Validate equalize groups
         newErrors = newErrors.concat(validateGroups(inputsData, customMessages, defaultMessages));
-        //If there are errors doesn't send the form otherwise execute custom onSubmit and send
+        //If there are errors, prevent form submission
         if(!(newErrors.length == 0)){
-            event.preventDefault();
-        }else{
-            try {
-                if(onSubmit) await onSubmit(event);
-                setOnSubmitError(null);
-            } catch (error : any) {
-                setOnSubmitError(error);
-            }
+            setErrors(newErrors);
+            return;
+        }
+        //Execute custom onSubmit and send
+        try {
+            if(onSubmit) await onSubmit(event);
+            setOnSubmitError(null);
+        } catch (error : any) {
+            setOnSubmitError(error);
         }
         setSubmitted(true);
         setErrors(newErrors);

@@ -20,27 +20,23 @@ const defaultMessages : messages = {
   required: "Debes completar este campo"
 }
 
-function test(text : string, _ : null){
-  return text === "Hola";
+async function test(text : string, _ : null){
+  const response = await fetch("http://localhost:8080/user/exists", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({username: text}),
+  });
+  const data : { exists : boolean } = await response.json();
+  return data.exists;
 }
 
 function App() {
   
   async function handleSubmit(event : React.SyntheticEvent<HTMLFormElement>){
     event.preventDefault();
-    await prueba();
-  }
-
-  async function prueba(){
-    try{
-      await errorFunction();
-    }catch(error){
-      throw error;
-    }
-  }
-
-  async function errorFunction(){
-    throw new Error("error");
+    console.log("Form submitted");
   }
   
   return (

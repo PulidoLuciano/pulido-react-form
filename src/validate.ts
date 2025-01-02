@@ -13,7 +13,8 @@ import { VALIDATIONPROPS } from "./constants";
  */
 export async function validate(value : any, inputData : CustomInputProps, customMessages? : Array<ErrorMessageDeclaration>, defaultMessages? : messages){
     for(let i = 0; i < VALIDATIONPROPS.length; i++){
-        if(await isNotValid(value, inputData as map, VALIDATIONPROPS[i])){
+        const failValidation = await isNotValid(value, inputData as map, VALIDATIONPROPS[i]);
+        if(failValidation){
             const errorMessage = setMessage(value, inputData as map, VALIDATIONPROPS[i], customMessages, defaultMessages);
             const error : InputError = {name: inputData.name as string, message: errorMessage} 
             return error;

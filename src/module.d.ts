@@ -6,7 +6,7 @@ interface map {
 
 interface validationProps{
     name : string
-    validationFunction : (value : any, expected : any) => boolean
+    validationFunction : (value : any, expected : any) => boolean | Promise<boolean>
     defaultMessage : (name : string, value? : any, expected? : any) => string
     onTypes : string[]
 }
@@ -40,12 +40,12 @@ export interface CustomInputProps extends ComponentPropsWithoutRef<"input">{
 
 export interface CustomTextareaProps extends ComponentPropsWithoutRef<"textarea">{
     equalize? : string
-    custom? : (value : any, expected : any) => boolean
+    custom? : (value : any, expected : any) => boolean | Promise<boolean>
 }
 
 export interface CustomSelectProps extends ComponentPropsWithoutRef<"select">{
     equalize? : string
-    custom? : (value : any, expected : any) => boolean
+    custom? : (value : any, expected : any) => boolean | Promise<boolean>
 }
 
 export interface InputError{
