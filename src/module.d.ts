@@ -35,7 +35,7 @@ export interface CustomFormProps extends ComponentPropsWithoutRef<"form">{
 
 export interface CustomInputProps extends ComponentPropsWithoutRef<"input">{
     equalize? : string
-    custom? : (value : any, expected : any) => boolean
+    custom? : (value : any, expected : any) => boolean | Promise<boolean>
 }
 
 export interface CustomTextareaProps extends ComponentPropsWithoutRef<"textarea">{

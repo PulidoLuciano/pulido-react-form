@@ -12,23 +12,30 @@ export function Form({customMessages, defaultMessages, children, onSubmit,...pro
     const [errors, setErrors] = useState<InputError[]>([]);
     //Indicate if the form was submitted before
     const [submitted, setSubmitted] = useState<boolean>(false);
+    //Error message from the user onSubmit
+    const [onSubmitError, setOnSubmitError] = useState<any | null>(null);
     
-    function handleSubmit(event : React.SyntheticEvent<HTMLFormElement>){ 
+    async function handleSubmit(event : React.SyntheticEvent<HTMLFormElement>){ 
         let newErrors : InputError[] = [];
         //Iterate inputs and validate each one
-        inputsData.forEach((input : CustomInputProps) => {
-            if(!input.name) return;
+        for(const input of inputsData){
+            if(!input.name) break;
             input.value = (event.target as HTMLFormElement)[input.name].value
-            const inputError = validate(input.value, input, customMessages, defaultMessages);
+            const inputError = await validate(input.value, input, customMessages, defaultMessages);
             if(inputError) newErrors.push(inputError);
-        });
+        }
         //Validate equalize groups
         newErrors = newErrors.concat(validateGroups(inputsData, customMessages, defaultMessages));
         //If there are errors doesn't send the form otherwise execute custom onSubmit and send
         if(!(newErrors.length == 0)){
             event.preventDefault();
         }else{
-            if(onSubmit) onSubmit(event);
+            try {
+                if(onSubmit) await onSubmit(event);
+                setOnSubmitError(null);
+            } catch (error : any) {
+                setOnSubmitError(error);
+            }
         }
         setSubmitted(true);
         setErrors(newErrors);
@@ -63,7 +70,7 @@ export function Form({customMessages, defaultMessages, children, onSubmit,...pro
                         return <select {...props}/>;
                     case "generalstatus":
                         if(!submitted) return null;
-                        if(errors.length === 0) return (props as GeneralStatusProps).successMessage;
+                        if(errors.length === 0 && !onSubmitError) return (props as GeneralStatusProps).successMessage;
                         else return (props as GeneralStatusProps).errorMessage;
                     default:
                         return child;

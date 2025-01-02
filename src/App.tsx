@@ -26,9 +26,21 @@ function test(text : string, _ : null){
 
 function App() {
   
-  function handleSubmit(event : React.SyntheticEvent<HTMLFormElement>){
+  async function handleSubmit(event : React.SyntheticEvent<HTMLFormElement>){
     event.preventDefault();
-    console.log(event.target)
+    await prueba();
+  }
+
+  async function prueba(){
+    try{
+      await errorFunction();
+    }catch(error){
+      throw error;
+    }
+  }
+
+  async function errorFunction(){
+    throw new Error("error");
   }
   
   return (

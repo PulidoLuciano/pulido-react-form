@@ -11,9 +11,9 @@ import { VALIDATIONPROPS } from "./constants";
  * 
  * @returns The first error founded, otherwise null
  */
-export function validate(value : any, inputData : CustomInputProps, customMessages? : Array<ErrorMessageDeclaration>, defaultMessages? : messages){
+export async function validate(value : any, inputData : CustomInputProps, customMessages? : Array<ErrorMessageDeclaration>, defaultMessages? : messages){
     for(let i = 0; i < VALIDATIONPROPS.length; i++){
-        if(isNotValid(value, inputData as map, VALIDATIONPROPS[i])){
+        if(await isNotValid(value, inputData as map, VALIDATIONPROPS[i])){
             const errorMessage = setMessage(value, inputData as map, VALIDATIONPROPS[i], customMessages, defaultMessages);
             const error : InputError = {name: inputData.name as string, message: errorMessage} 
             return error;
@@ -87,9 +87,9 @@ function setMessage(value : any, inputData : map, validation : validationProps ,
  * 
  * @returns False if the value is valid and true if the input is invalid
  */
-function isNotValid(value : any, inputData : CustomInputProps, validation : validationProps){
+async function isNotValid(value : any, inputData : CustomInputProps, validation : validationProps){
     if(!(inputData as map)[validation.name] || !validation.onTypes.includes(inputData.type as string)) return false;
     if(validation.name !== "custom") return validation.validationFunction(value, (inputData as map)[validation.name]);
-    if(inputData.custom) return inputData.custom(value, null);
+    if(inputData.custom) return await inputData.custom(value, null);
     return false;
 }
